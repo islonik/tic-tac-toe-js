@@ -14,8 +14,6 @@ class Ai {
 			board.set(id, tileEntity);
 		}    
         this._board = board;
-
-        console.log('Stateless');
     }
 
     move(tileInt, cover) {
