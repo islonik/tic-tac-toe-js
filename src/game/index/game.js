@@ -9,10 +9,11 @@ const aiTile = tile.Tile.AI;
 
 class Game {
 	constructor() {
+        this._ai = new ai.Ai();
         this._canPlay = true;
         this._winner = '';
-        this._ai = new ai.Ai();
-        this._state = 'You should make a move!'
+        this._state = 'You should make a move!';
+        this._print = true;
 	}
 
     process(button) {
@@ -23,30 +24,36 @@ class Game {
             let tileId = Number.parseInt(button);
             if (!this.isFreeTile(tileId)) {
                 this._state = "This tile is already busy! Please choose another one.";
-                console.log(this._state);
+                this.print(this._state);
                 return;
             }
 			this._ai.move(tileId, plTile);
-			this.print();
+			this.printBoard();
 			if (this.isPlWinner()) {
                 this.gameOver(); // player won
 			} else if (this.isMovable()) {
 				this._ai.aiMove();
-			    this.print();
+			    this.printBoard();
                 if (this.isAiWinner()) { // ai won
                     this.gameOver();
                 }
 			} else { // draw
                 this._state = "It is a draw!";
-                console.log(this._state);     
+                this.print(this._state);
             }
 		}
+    }
+
+    print(message) {
+        if (this._print) {
+            console.log(message);
+        }
     }
 
     gameOver() {
         this._canPlay = false;
         this._state = this._winner + ' has won!';
-        console.log(this._state);
+        this.print(this._state);
     }
 
     isFreeTile(tileId) {
@@ -122,7 +129,7 @@ class Game {
         return false;
     }
 
-	print() {
+	printBoard() {
 		// ugly af
 		let t1 = this._ai._board.get(1)._type;
 		let t2 = this._ai._board.get(2)._type;
@@ -144,7 +151,7 @@ class Game {
 		 | ${t7} | ${t8} | ${t9} | 
 		 |---|---|---|`;
 
-		console.log(status);
+         this.print(status);
 	}
 
     render(currGame) {

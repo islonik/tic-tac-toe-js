@@ -23,7 +23,7 @@ class Tile {
 	}
 
 	static get AI() {
-		return 'Y';
+		return 'O';
 	}
 
 	static get EMPTY() {
