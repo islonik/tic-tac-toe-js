@@ -80,4 +80,149 @@ describe('AI tests', () => {
 
         expect(aiTest._board.get(5).type).to.be.equal('Y');
     })
+
+    it ('victory case 03', () => {
+        let aiTest = new ai.Ai();
+        expect(aiTest).to.be.not.null;
+
+        aiTest.move(1, 'X');
+        aiTest.move(5, 'Y');
+        aiTest.move(6, 'X');
+        aiTest.move(7, 'Y');
+        aiTest.move(9, 'X');
+
+        /**
+         |---|---|---| 
+		 | X |   |   | 
+		 |---|---|---| 
+		 |   | Y | X |
+		 |---|---|---| 
+		 | Y |   | X | 
+		 |---|---|---|
+        **/
+        aiTest.aiMove();
+
+        expect(aiTest._board.get(3).type).to.be.equal('Y');
+    })
+
+    it ('defense case 01', () => {
+        let aiTest = new ai.Ai();
+        expect(aiTest).to.be.not.null;
+
+        aiTest.move(1, 'X');
+        aiTest.move(7, 'Y');
+        aiTest.move(9, 'X');
+
+        /**
+         |---|---|---| 
+		 | X |   |   | 
+		 |---|---|---| 
+		 |   |   |   |
+		 |---|---|---| 
+		 | Y |   | X | 
+		 |---|---|---|
+        **/
+        aiTest.aiMove();
+
+        expect(aiTest._board.get(5).type).to.be.equal('Y');
+    })
+
+    it ('defense case 02', () => {
+        let aiTest = new ai.Ai();
+        expect(aiTest).to.be.not.null;
+
+        aiTest.move(1, 'X');
+        aiTest.move(5, 'Y');
+        aiTest.move(7, 'X');
+
+        /**
+         |---|---|---| 
+		 | X |   |   | 
+		 |---|---|---| 
+		 |   | Y |   |
+		 |---|---|---| 
+		 | X |   |   | 
+		 |---|---|---|
+        **/
+        aiTest.aiMove();
+
+        expect(aiTest._board.get(4).type).to.be.equal('Y');
+    })
+
+    it ('defense case 03', () => {
+        let aiTest = new ai.Ai();
+        expect(aiTest).to.be.not.null;
+
+        aiTest.move(1, 'X');
+        aiTest.move(5, 'Y');
+        aiTest.move(3, 'X');
+
+        /**
+         |---|---|---| 
+		 | X |   | X | 
+		 |---|---|---| 
+		 |   | Y |   |
+		 |---|---|---| 
+		 |   |   |   | 
+		 |---|---|---|
+        **/
+        aiTest.aiMove();
+
+        expect(aiTest._board.get(2).type).to.be.equal('Y');
+    })
+
+    it ('random move. case 01', () => {
+        let aiTest = new ai.Ai();
+        expect(aiTest).to.be.not.null;
+
+        aiTest.randomMove();
+        let randomMove = false;
+        for (let x = 1; x <= 9; x++) {
+            let value = aiTest._board.get(x)._type;
+            if (value == 'Y') {
+                randomMove = true;
+                break;
+            }
+        }
+        expect(randomMove).to.be.true;
+    })
+
+    it ('random move. case 02', () => {
+        let aiTest = new ai.Ai();
+        expect(aiTest).to.be.not.null;
+
+        aiTest._move = true;
+        aiTest.randomMove();
+
+        let noMoves = true;
+        for (let x = 1; x <= 9; x++) {
+            let value = aiTest._board.get(x)._type;
+            if (value != ' ') {
+                noMoves = false;
+                break;
+            }
+        }
+        expect(noMoves).to.be.true;
+    })
+
+    it ('random move. case 03', () => {
+        let aiTest = new ai.Ai();
+        expect(aiTest).to.be.not.null;
+
+        aiTest.move(1, 'X');
+        aiTest.aiMove();
+
+        let plMove = false;
+        let aiMove = false;
+        for (let x = 1; x <= 9; x++) {
+            let value = aiTest._board.get(x)._type;
+            if (value == 'Y') {
+                aiMove = true;
+            } else if (value == 'X') {
+                plMove = true;
+            }
+        }
+        expect(plMove).to.be.true;
+        expect(aiMove).to.be.true;
+    })
 }) 

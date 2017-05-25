@@ -12,11 +12,12 @@
   },
   "devDependencies": {
     "chai": "^3.5.0",
+    "istanbul": "^0.4.5",
     "mocha": "^3.4.1",
     "typescript": "^2.1.4"
   },
   "scripts": {
-    "test": "mocha --bail test --recursive"
+    "test": "istanbul cover _mocha -- test --recursive"
   },
   "author": "Nikita Lipatov",
   "license": "ISC"
