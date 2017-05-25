@@ -18,6 +18,18 @@ class Tile {
 		return this._type;
 	}
 
+	static get PLAYER() {
+		return 'X';
+	}
+
+	static get AI() {
+		return 'Y';
+	}
+
+	static get EMPTY() {
+		return ' ';
+	}
+
 }
 
 module.exports = {

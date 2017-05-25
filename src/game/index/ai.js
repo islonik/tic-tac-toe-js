@@ -2,9 +2,9 @@
 
 const tile = require('./tile')
 
-const emTile = ' ';
-const plTile = 'X';
-const aiTile = 'Y';
+const emTile = tile.Tile.EMPTY;
+const plTile = tile.Tile.PLAYER;
+const aiTile = tile.Tile.AI;
 
 class Ai {
     constructor() {
